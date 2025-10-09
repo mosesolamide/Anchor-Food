@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AUL Delivery</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Tailwind Custom Theme + Animation -->
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Raleway", sans-serif;
+      --color-navbar: #004b23;
+      --color-text-light: #f1faee;
+      --color-text-dark: #333333;
+      --color-btn: #80ed99;
+      --color-btn-hover: #b7e4c7;
+      --color-accent: #ffb703;
+      --color-section-bg: #f9f9f9;
+      --animate-marquee: marquees 8s linear infinite;
+      @keyframes marquees {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+      }
+    }
+  </style>
+
+</head>
+
+<body class="flex flex-col h-screen text-text-dark bg-section-bg overflow-hidden">
+  <!-- Header -->
+  <header class="bg-navbar text-text-light shrink-0">
+    <nav class="flex justify-between items-center p-4 md:p-6">
+      <div class="flex items-center gap-2">
+        <img src="" alt="AUL Delivery Logo" class="w-10 h-10 object-contain" />
+        <h1 class="text-xl font-semibold">CampusEats</h1>
+      </div>
+
+      <!-- Nav Links -->
+      <ul
+        id="mobile-nav-list"
+        class="hidden fixed top-16 right-0 transition-transform duration-700 bg-navbar
+        rounded-bl-md space-y-4 md:space-y-0 p-4 md:p-0 md:static md:flex gap-6 z-50"
+      >
+        <li><a href="#home" class="hover:text-btn cursor-pointer block">Home</a></li>
+        <li><a href="#menu" class="hover:text-btn cursor-pointer block">Menu</a></li>
+        <li><a href="#how" class="hover:text-btn cursor-pointer block">How It Works</a></li>
+        <li><a href="#order" class="hover:text-btn cursor-pointer block">Order Now</a></li>
+        <li><a href="#contact" class="hover:text-btn cursor-pointer block">Contact Us</a></li>
+      </ul>
+
+      <!-- Hamburger -->
+      <div
+        id="harmburger"
+        class="w-8 h-8 md:hidden cursor-pointer"
+        aria-label="Hamburger Menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+        </svg>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Section -->
+  <main class="flex-grow flex items-center justify-center overflow-y-auto relative">
+    <!-- Decorative Background Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-20 left-10 w-20 h-20 bg-accent/20 rounded-full blur-2xl animate-pulse"></div>
+      <div class="absolute bottom-20 right-10 w-32 h-32 bg-btn/30 rounded-full blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-navbar/10 rounded-full blur-xl animate-pulse" style="animation-delay: 2s;"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="py-6 md:py-12 px-4 w-full max-w-7xl mx-auto relative z-10">
+      <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <!-- Text Content -->
+        <div class="flex-1 text-center md:text-left">
+          <h2 class="text-2xl md:text-5xl font-bold text-navbar mb-3 md:mb-4 leading-tight">
+            Relax While We Handle Your Delivery 🍲
+          </h2>
+          <p class="max-w-xl mx-auto md:mx-0 text-text-dark text-sm md:text-lg mb-4 md:mb-6">
+            Whether you're chilling in your hostel, studying in class, or hanging out with friends — 
+            <strong>CampusEats</strong> brings your favorite meals right to you. 
+            Fresh, fast, and reliable.
+          </p>
+          <button class="bg-btn text-navbar font-semibold px-6 py-3 rounded-lg hover:bg-btn-hover transition cursor-pointer shadow-lg hover:shadow-xl hover:scale-105 transform duration-300">
+            Order Now
+          </button>
+        </div>
+
+        <!-- Image/Visual Content -->
+        <div class="flex-1 hidden md:block relative">
+          <div class="relative w-full h-80 bg-gradient-to-br from-btn/20 to-navbar/20 rounded-3xl overflow-hidden shadow-2xl">
+            <!-- Placeholder for your image -->
+            <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=800" alt="Food Delivery" class="w-full h-full object-cover" />
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-10 right-10 text-6xl animate-bounce" style="animation-duration: 3s;">🍕</div>
+            <div class="absolute bottom-10 left-10 text-5xl animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.5s;">🍔</div>
+            <div class="absolute top-1/2 left-1/4 text-4xl animate-bounce" style="animation-duration: 2s; animation-delay: 1s;">🥤</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with Continuous Marquee -->
+  <footer class="bg-navbar text-white relative overflow-hidden py-3 shadow-md shrink-0">
+    <div class="animate-marquee flex whitespace-nowrap items-center">
+        <div class="flex shrink-0 gap-8 pr-8">
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">🚚 Fast Delivery</span>
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">🍔 Fresh Meals</span>
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">💰 Affordable Prices</span>
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">🏫 We Deliver to Your Hostel or Class!</span>
+        </div>
+
+        <!-- Duplicate for seamless scrolling -->
+        <div class="flex shrink-0 gap-8 pr-8">
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">🚚 Fast Delivery</span>
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">🍔 Fresh Meals</span>
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">💰 Affordable Prices</span>
+          <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">🏫 We Deliver to Your Hostel or Class!</span>
+        </div>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
