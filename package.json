@@ -1,0 +1,24 @@
+{
+  "name": "anchor-food",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mosesolamide/Anchor-Food.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mosesolamide/Anchor-Food/issues"
+  },
+  "homepage": "https://github.com/mosesolamide/Anchor-Food#readme",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
