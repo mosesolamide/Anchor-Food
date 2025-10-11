@@ -38,10 +38,10 @@
 
 </head>
 
-<body class="flex flex-col h-screen text-text-dark bg-section-bg overflow-hidden">
+<body class="flex flex-col h-screen text-text-dark bg-section-bg overflow-hidden w-screen px-6">
   <!-- Header -->
-  <header class="bg-navbar text-text-light shrink-0">
-    <nav class="flex justify-between items-center p-4 md:p-6">
+  <header class="bg-navbar text-text-light shrink-0 w-full max-w-7xl mx-auto rounded-full mt-4">
+    <nav class="flex justify-between items-center py-4 px-6">
       <div class="flex items-center gap-2">
         <img src="" alt="AUL Delivery Logo" class="w-10 h-10 object-contain" />
         <h1 class="text-xl font-semibold">CampusEats</h1>
@@ -50,14 +50,18 @@
       <!-- Nav Links -->
       <ul
         id="mobile-nav-list"
-        class="hidden fixed top-16 right-0 transition-transform duration-700 bg-navbar
-        rounded-bl-md space-y-4 md:space-y-0 p-4 md:p-0 md:static md:flex gap-6 z-50"
+        class="hidden fixed top-24 left-6 right-6 transition-transform duration-700 bg-navbar
+        rounded-xl space-y-4 md:space-y-0 p-4 md:p-0 md:static md:flex gap-6 z-50"
       >
-        <li><a href="#home" class="hover:text-btn cursor-pointer block">Home</a></li>
-        <li><a href="#menu" class="hover:text-btn cursor-pointer block">Menu</a></li>
+        <li><a href="index.html" class="hovtext-btn cursor-pointer block">Home</a></li>
+        <li><a href="order-now.html" class="hover:text-btn cursor-pointer block">Order Now</a></li>
         <li><a href="#how" class="hover:text-btn cursor-pointer block">How It Works</a></li>
-        <li><a href="#order" class="hover:text-btn cursor-pointer block">Order Now</a></li>
         <li><a href="#contact" class="hover:text-btn cursor-pointer block">Contact Us</a></li>
+        <li>
+          <a href="cart.html" class="hover:text-btn cursor-pointer block flex items-center gap-1">
+            🛒 <span>Cart</span>
+          </a>
+        </li>
       </ul>
 
       <!-- Hamburger -->
@@ -104,12 +108,12 @@
         <div class="flex-1 hidden md:block relative">
           <div class="relative w-full h-80 bg-gradient-to-br from-btn/20 to-navbar/20 rounded-3xl overflow-hidden shadow-2xl">
             <!-- Placeholder for your image -->
-            <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?w=800" alt="Food Delivery" class="w-full h-full object-cover" />
+            <img src="./assets/Delivery.jpg" alt="Food Delivery" class="w-full h-full object-cover" />
             
-            <!-- Floating Elements -->
+            <!-- Floating Elements
             <div class="absolute top-10 right-10 text-6xl animate-bounce" style="animation-duration: 3s;">🍕</div>
             <div class="absolute bottom-10 left-10 text-5xl animate-bounce" style="animation-duration: 2.5s; animation-delay: 0.5s;">🍔</div>
-            <div class="absolute top-1/2 left-1/4 text-4xl animate-bounce" style="animation-duration: 2s; animation-delay: 1s;">🥤</div>
+            <div class="absolute top-1/2 left-1/4 text-4xl animate-bounce" style="animation-duration: 2s; animation-delay: 1s;">🥤</div> -->
           </div>
         </div>
       </div>
@@ -117,7 +121,7 @@
   </main>
 
   <!-- Footer with Continuous Marquee -->
-  <footer class="bg-navbar text-white relative overflow-hidden py-3 shadow-md shrink-0">
+  <footer class="bg-navbar text-white relative overflow-hidden py-3 shadow-md shrink-0 rounded-xl mb-4">
     <div class="animate-marquee flex whitespace-nowrap items-center">
         <div class="flex shrink-0 gap-8 pr-8">
           <span class="px-5 py-2 rounded-lg text-sm md:text-base border border-white/30 bg-white/10 backdrop-blur-md shadow-md">🚚 Fast Delivery</span>
