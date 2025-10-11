@@ -32,6 +32,6 @@ if(foodCategories){
       li.onclick = () => selectCategory(category)
       
       foodCategories.appendChild(li)
-    });
+    })
 }
 
