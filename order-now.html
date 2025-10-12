@@ -74,24 +74,83 @@
   </header>
 
   <main class="my-6">
-    <div class="w-[98%] mx-auto p-6 shadow-md rounded-2xl bg-green-50">
-      <div class="flex flex-col gap-4 md:flex-row md:gap-10 items-center w-full">
-        <select name="" id="" class="border border-navbar p-2 rounded-md w-full md:w-[300px]">
-          <option value="">---Choose Hall---</option>
-          <option value="">Peace Hall</option>
-          <option value="">Patient Hall</option>
-          <option value="">Purity All</option>
+    <div class="w-[98%] mx-auto p-6 shadow-lg rounded-2xl bg-green-50">
+      <div class="flex flex-col lg:flex-row items-center gap-4 md:gap-8 w-full font-[600] text-md">
+        <!-- Hall Selection -->
+        <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
+          <option value="">Select a Hall</option>
+          <option value="peace">Peace Hall</option>
+          <option value="patient">Patient Hall</option>
+          <option value="purity">Purity Hall</option>
         </select>
-        <span>Or</span>
-        <input type="text" class="border border-navbar p-2 rounded-md indent-2 w-full md:w-[400px]" placeholder="Custom Location">
-        <input type="search" class="border border-navbar p-2 rounded-md indent-2 w-full md:w-[300px]" placeholder="Search meal">
+        
+        <input 
+          type="text"
+          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+          placeholder="Enter Room N0."
+        >
+
+        <!-- Divider -->
+        <div class="flex items-center text-gray-500 font-medium">
+          <span class="mx-2 text-sm">Or</span>
+        </div>
+
+        <!-- Custom Location -->
+        <input 
+          type="text" 
+          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+          placeholder="Enter custom location"
+        >
+
+        <!-- Search Meal -->
+        <input 
+          type="text" 
+          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+          placeholder="Search meal..."
+        >
       </div>
 
       <div class="mt-4">
-        <ul class="flex gap-6" id="food-categories"></ul>
+        <ul 
+          class="flex gap-6 text-xs sm:text-sm md:text-md font-[600]" 
+          id="food-categories"
+        ></ul>
       </div>
 
     </div>
+
+    <!--Menu -->
+    <section class="p-6 flex flex-col">
+      <h1 class="text-lg font-bold">Available Food</h1>
+      <div class="grid grid-col-1" id="product">
+        <!-- <div class="flex flex-col md:flex-row space-x-4 md:items-start border-b border-green-600 py-10 max-w-[650px] md:h-[220px]">
+
+          <div class="w-38 h-34 mx-auto md:m-4">
+            <img src="./assets/Delivery.jpg" alt="" class="w-full h-full object-cover rounded">
+          </div>
+
+          <div class="space-y-2.5 order-3 md:order-0 md:space-y-6.5 mt-4">
+            <h2 class="text-sm md:text-[18px] font-bold">Extra Take Away Pack</h2>
+            <p class="text-sm">$200 for the additional pack required</p>
+            <button class="bg-btn font-semibold px-4 py-2 rounded w-full hover:bg-btn">Add to Cart</button>
+          </div>
+
+          <div class="flex md:flex-col justify-between h-full mt-4 mt-0">
+            <label class="flex gap-2 font-medium">
+              Quantity:
+              <input 
+                type="number" 
+                class="border w-18 rounded indent-2" 
+                value="1"
+              >
+            </label>
+            <span class="font-bold block">$350</span>
+          </div>
+
+        </div> -->
+        
+      </div>
+    </section>
   </main>
 <script type="module" src="./dist/index.js"></script>
 </body>
