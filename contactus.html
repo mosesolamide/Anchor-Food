@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusEats Menu</title>
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusEats || How it works</title>
+      <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <!-- Tailwind Custom Theme + Animation -->
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      <!-- Tailwind Custom Theme + Animation -->
     <style type="text/tailwindcss">
         @theme {
         --font-sans: "Raleway", sans-serif;
@@ -23,10 +22,20 @@
         --color-btn-hover: #b7e4c7;
         --color-accent: #ffb703;
         --color-section-bg: #f9f9f9;
+        --animate-marquee: marquees 8s linear infinite;
+
+        @keyframes marquees {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+        }
       }
     </style>
 </head>
-<body class="px-6">
+<body class="px-6 bg-section-bg">
     <header class="bg-navbar text-text-light shrink-0 rounded-full mt-4 max-w-7xl mx-auto">
       <nav class="flex justify-between items-center py-4 px-7">
         <div class="flex items-center gap-2">
@@ -38,12 +47,12 @@
         <ul
           id="mobile-nav-list"
           class="hidden fixed top-24 left-6 right-6 transition-transform duration-700 bg-navbar
-          rounded-xl space-y-4 md:space-y-0 p-4 md:p-0 md:static md:flex gap-6 items-center"
+          rounded-xl space-y-4 md:space-y-0 p-4 md:p-0 md:static md:flex gap-6 items-center z-50"
         >
           <li><a href="index.html" class="hover:text-btn cursor-pointer block">Home</a></li>
-          <li><a href="order-now.html" class="text-btn cursor-pointer block">Order Now</a></li>
+          <li><a href="order-now.html" class="hover:text-btn cursor-pointer block">Order Now</a></li>
           <li><a href="how-it-work.html" class="hover:text-btn cursor-pointer block">How It Works</a></li>
-          <li><a href="contactus.html" class="hover:text-btn cursor-pointer block">Contact Us</a></li>
+          <li><a href="contactus.html" class="text-btn cursor-pointer block">Contact Us</a></li>
           <li>
             <button
               id="open-cart"
@@ -73,7 +82,7 @@
           </svg>
         </div>
     </nav>
-    <div class="min-w-[385px] absolute right-6 md:right-10 border-green-100 border hidden bg-white rounded-2xl" id="cartModal">
+    <div class="min-w-[385px] absolute right-6 md:right-10 border-green-100 border hidden bg-white rounded-2xl z-50" id="cartModal">
       <div 
         class="bg-navbar text-center w-full rounded-t-2xl p-4 font-bold text-lg text-center flex justify-center items-center"
       >
@@ -93,8 +102,7 @@
           </button>
         </div>
       </div>
-      <div id="cartItem" class="p-6 flex flex-col justify-center  text-gray-500">
-      </div>
+      <div id="cartItem" class="p-6 flex flex-col justify-center  text-gray-500"></div>
       <div class="flex justify-center gap-4 items-center my-4">
         <button 
           class="bg-btn text-navbar px-4 py-2 font-bold rounded-md cursor-pointer hover:bg-btn-hover"
@@ -110,60 +118,70 @@
     </div>
   </header>
 
-  <main class="my-6">
-    <div class="w-[98%] mx-auto p-6 shadow-lg rounded-2xl bg-green-50">
-      <div class="flex flex-col lg:flex-row items-center gap-4 md:gap-8 w-full font-[600] text-md">
-        <!-- Hall Selection -->
-        <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
-          <option value="">Select a Hall</option>
-          <option value="peace">Peace Hall</option>
-          <option value="patient">Patient Hall</option>
-          <option value="purity">Purity Hall</option>
-        </select>
-        
-        <input 
-          type="text"
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter Room N0."
-          required
-        >
+  <main class="my-6 max-w-7xl mx-auto">
+        <!-- Title Section -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-navbar mb-3">
+        Contact Us
+      </h2>
+      <p class="text-text-dark text-lg">You can reach out to us</p>
+    </div>
 
-        <!-- Divider -->
-        <div class="flex items-center text-gray-500 font-medium">
-          <span class="mx-2 text-sm">Or</span>
+    <div class="flex flex-col lg:flex-row justify-center items-center gap-8 md:gap-12">
+      <!-- Image Section -->
+      <div class="w-full md:w-[45%] h-[400px] md:h-[620px]">
+        <img src="assets/Delivery.jpg" alt="Delivery in campus" class="w-full h-full object-cover rounded-2xl shadow-lg">
+      </div>
+
+    <form action="" class="border border-gray-300 p-6 rounded w-full md:w-[45%]">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label class="flex flex-col font-medium">
+            Fullname:
+            <input
+                type="text"
+                class="border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-btn"
+                placeholder="Enter your name"
+            />
+            </label>
+
+            <label class="flex flex-col font-medium">
+            Matric No:
+            <input
+                type="text"
+                class="border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-btn"
+                placeholder="Enter your matric number"
+            />
+            </label>
+
+            <label class="flex flex-col font-medium md:col-span-2">
+            Email:
+            <input
+                type="email"
+                class="border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-btn"
+                placeholder="Enter your email"
+            />
+            </label>
+
+            <label class="flex flex-col font-medium md:col-span-2">
+            Message:
+            <textarea
+                rows="4"
+                class="border border-gray-300 px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-btn"
+                placeholder="Type your message..."
+            ></textarea>
+            </label>
         </div>
 
-        <!-- Custom Location -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter custom location"
-          required
+        <button
+            type="submit"
+            class="mt-4 bg-btn text-navbar hover:bg-btn-hover font-bold px-8 py-2 cursor-pointer rounded hover:bg-blue-700 transition w-full"
         >
-
-        <!-- Search Meal -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Search meal..."
-          required
-        >
-      </div>
-
-      <div class="mt-4">
-        <ul 
-          class="flex flex-col md:flex-row gap-6 text-xs sm:text-sm md:text-md font-[600]" 
-          id="food-categories"
-        ></ul>
-      </div>
+            Submit
+        </button>
+    </form>
 
     </div>
 
-    <!--Menu -->
-    <section class="p-6 flex flex-col">
-      <h1 class="text-lg font-bold">Available Food</h1>
-      <div class="grid grid-col-1" id="product"></div>
-    </section>
   </main>
   
     <!-- ================= FOOTER ================= -->
@@ -207,6 +225,6 @@
       </div>
     </footer>
 
-<script type="module" src="./dist/index.js"></script>
+  <script src="./dist/index.js"></script>
 </body>
 </html>

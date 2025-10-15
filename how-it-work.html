@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusEats Menu</title>
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusEats || How it works</title>
+      <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <!-- Tailwind via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-    <!-- Tailwind Custom Theme + Animation -->
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+      <!-- Tailwind Custom Theme + Animation -->
     <style type="text/tailwindcss">
         @theme {
         --font-sans: "Raleway", sans-serif;
@@ -23,10 +22,20 @@
         --color-btn-hover: #b7e4c7;
         --color-accent: #ffb703;
         --color-section-bg: #f9f9f9;
+        --animate-marquee: marquees 8s linear infinite;
+
+        @keyframes marquees {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+        }
       }
     </style>
 </head>
-<body class="px-6">
+<body class="px-6 bg-section-bg">
     <header class="bg-navbar text-text-light shrink-0 rounded-full mt-4 max-w-7xl mx-auto">
       <nav class="flex justify-between items-center py-4 px-7">
         <div class="flex items-center gap-2">
@@ -38,11 +47,11 @@
         <ul
           id="mobile-nav-list"
           class="hidden fixed top-24 left-6 right-6 transition-transform duration-700 bg-navbar
-          rounded-xl space-y-4 md:space-y-0 p-4 md:p-0 md:static md:flex gap-6 items-center"
+          rounded-xl space-y-4 md:space-y-0 p-4 md:p-0 md:static md:flex gap-6 items-center z-50"
         >
           <li><a href="index.html" class="hover:text-btn cursor-pointer block">Home</a></li>
-          <li><a href="order-now.html" class="text-btn cursor-pointer block">Order Now</a></li>
-          <li><a href="how-it-work.html" class="hover:text-btn cursor-pointer block">How It Works</a></li>
+          <li><a href="order-now.html" class="hover:text-btn cursor-pointer block">Order Now</a></li>
+          <li><a href="how-it-work.html" class="text-btn cursor-pointer block">How It Works</a></li>
           <li><a href="contactus.html" class="hover:text-btn cursor-pointer block">Contact Us</a></li>
           <li>
             <button
@@ -69,11 +78,11 @@
             aria-label="Hamburger Menu"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
           </svg>
         </div>
     </nav>
-    <div class="min-w-[385px] absolute right-6 md:right-10 border-green-100 border hidden bg-white rounded-2xl" id="cartModal">
+    <div class="min-w-[385px] absolute right-6 md:right-10 border-green-100 border hidden bg-white rounded-2xl z-50" id="cartModal">
       <div 
         class="bg-navbar text-center w-full rounded-t-2xl p-4 font-bold text-lg text-center flex justify-center items-center"
       >
@@ -93,8 +102,7 @@
           </button>
         </div>
       </div>
-      <div id="cartItem" class="p-6 flex flex-col justify-center  text-gray-500">
-      </div>
+      <div id="cartItem" class="p-6 flex flex-col justify-center  text-gray-500"></div>
       <div class="flex justify-center gap-4 items-center my-4">
         <button 
           class="bg-btn text-navbar px-4 py-2 font-bold rounded-md cursor-pointer hover:bg-btn-hover"
@@ -102,7 +110,7 @@
           View and edit
         </button>
         <button 
-          class="bg-btn text-navbar px-4 py-2 font-bold rounded-md cursor-pointer hover:bg-btn-hover"
+              class="bg-btn text-navbar px-4 py-2 font-bold rounded-md cursor-pointer hover:bg-btn-hover"
         >
           Proceed to checkout
         </button>
@@ -110,60 +118,139 @@
     </div>
   </header>
 
-  <main class="my-6">
-    <div class="w-[98%] mx-auto p-6 shadow-lg rounded-2xl bg-green-50">
-      <div class="flex flex-col lg:flex-row items-center gap-4 md:gap-8 w-full font-[600] text-md">
-        <!-- Hall Selection -->
-        <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
-          <option value="">Select a Hall</option>
-          <option value="peace">Peace Hall</option>
-          <option value="patient">Patient Hall</option>
-          <option value="purity">Purity Hall</option>
-        </select>
-        
-        <input 
-          type="text"
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter Room N0."
-          required
-        >
-
-        <!-- Divider -->
-        <div class="flex items-center text-gray-500 font-medium">
-          <span class="mx-2 text-sm">Or</span>
-        </div>
-
-        <!-- Custom Location -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter custom location"
-          required
-        >
-
-        <!-- Search Meal -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Search meal..."
-          required
-        >
-      </div>
-
-      <div class="mt-4">
-        <ul 
-          class="flex flex-col md:flex-row gap-6 text-xs sm:text-sm md:text-md font-[600]" 
-          id="food-categories"
-        ></ul>
-      </div>
-
+  <main class="my-6 max-w-7xl mx-auto">
+    <!-- Title Section -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-navbar mb-3">
+        All you need to do is:
+      </h2>
+      <p class="text-text-dark text-lg">Simple steps to get your food delivered</p>
     </div>
 
-    <!--Menu -->
-    <section class="p-6 flex flex-col">
-      <h1 class="text-lg font-bold">Available Food</h1>
-      <div class="grid grid-col-1" id="product"></div>
-    </section>
+    <div class="flex flex-col lg:flex-row justify-center items-center gap-8 md:gap-12">
+      <!-- Image Section -->
+      <div class="w-full md:w-[45%] h-[400px] md:h-[620px]">
+        <img src="assets/Delivery.jpg" alt="Delivery in campus" class="w-full h-full object-cover rounded-2xl shadow-lg">
+      </div>
+
+      <!-- Steps Section -->
+      <div class="w-full md:w-[45%]">
+        <!-- Step 1 -->
+        <div class="flex gap-6 mb-12 items-start">
+          <!-- Icon -->
+          <div class="flex-shrink-0">
+            <div class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center">
+              <span class="text-3xl">🍲</span>
+            </div>
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 pt-2">
+            <h3 class="text-lg md:text-xl font-semibold text-navbar mb-1">Place your order</h3>
+            <p class="text-text-dark text-sm md:text-base">Browse our menu and select your favorite meals from the comfort of your hostel or class</p>
+          </div>
+        </div>
+
+        <!-- Arrow-->
+        <div class="flex flex-col justify-center items-center mb-4">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="16" 
+              height="16" 
+              fill="currentColor" 
+              class="bi bi-arrow-down w-7 h-7 text-navbar" 
+              viewBox="0 0 16 16"
+            >
+              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+            </svg>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex gap-6 mb-12 items-start">
+          <!-- Icon -->
+          <div class="flex-shrink-0">
+            <div class="w-14 h-14 rounded-full bg-btn/30 flex items-center justify-center">
+              <span class="text-3xl">✅</span>
+            </div>
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 pt-2">
+            <h3 class="text-lg md:text-xl font-semibold text-navbar mb-1">We confirm your order</h3>
+            <p class="text-text-dark text-sm md:text-base">Our team reviews and confirms your order details to ensure everything is perfect</p>
+          </div>
+        </div>
+
+        <!-- Arrow-->
+        <div class="flex flex-col justify-center items-center mb-4">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="16" 
+              height="16" 
+              fill="currentColor" 
+              class="bi bi-arrow-down w-7 h-7 text-navbar" 
+              viewBox="0 0 16 16"
+            >
+              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+            </svg>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex gap-6 mb-12 items-start">
+          <!-- Icon -->
+          <div class="flex-shrink-0">
+            <div class="w-14 h-14 rounded-full bg-accent/20 flex items-center justify-center">
+              <span class="text-3xl">🚴‍♂️</span>
+            </div>
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 pt-2">
+            <h3 class="text-lg md:text-xl font-semibold text-navbar mb-1">Someone Nearby Picks Up Your Order</h3>
+            <p class="text-text-dark text-sm md:text-base">Your food is carefully prepared and picked up by our trusted delivery riders</p>
+          </div>
+        </div>
+
+        <!-- Arrow-->
+        <div class="flex flex-col justify-center items-center mb-4">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="16" 
+              height="16" 
+              fill="currentColor" 
+              class="bi bi-arrow-down w-7 h-7 text-navbar" 
+              viewBox="0 0 16 16"
+            >
+              <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1"/>
+            </svg>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flex gap-6 items-start">
+          <!-- Icon -->
+          <div class="flex-shrink-0">
+            <div class="w-14 h-14 rounded-full bg-btn/30 flex items-center justify-center">
+              <span class="text-3xl">📦</span>
+            </div>
+          </div>
+          
+          <!-- Content -->
+          <div class="flex-1 pt-2">
+            <h3 class="text-lg md:text-xl font-semibold text-navbar mb-1">Your order is delivered right at your doorstep</h3>
+            <p class="text-text-dark text-sm md:text-base">Enjoy your hot, fresh meal delivered straight to your hostel room or class location</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="text-center mt-16">
+      <a href="order-now.html">
+        <button class="bg-btn text-navbar font-semibold px-8 py-4 rounded-lg hover:bg-btn-hover transition shadow-lg hover:shadow-xl hover:scale-105 transform duration-300 text-lg">
+          Start Ordering Now! 🍔
+        </button>
+      </a>
+    </div>
   </main>
   
     <!-- ================= FOOTER ================= -->
@@ -206,7 +293,7 @@
         </div>
       </div>
     </footer>
-
-<script type="module" src="./dist/index.js"></script>
+  
+  <script src="./dist/index.js"></script>
 </body>
 </html>
