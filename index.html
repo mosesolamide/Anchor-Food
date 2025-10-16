@@ -36,7 +36,7 @@
   >
     <!-- ================= HEADER ================= -->
     <header
-      class="bg-navbar text-text-light w-full mt-4 rounded-full max-w-7xl mx-auto"
+      class="bg-navbar text-text-light w-full mt-4 rounded-full max-w-7xl mx-auto fixed top-0 left-0 right-0 z-50"
     >
       <nav class="flex justify-between items-center py-4 px-6">
         <!-- Logo -->
@@ -113,43 +113,45 @@
 
       <!-- Cart Modal -->
       <div
-        class="w-full md:w-[500px] shadow-md absolute right-0 md:right-10 border-green-100 border hidden bg-white rounded-2xl z-20"
+        class="w-full h-screen shadow-md fixed right-0 top-0 hidden bg-black/50 z-50"
         id="cartModal"
       >
-        <div
-          class="bg-navbar text-center w-full rounded-t-2xl p-4 font-bold text-lg flex justify-center items-center"
-        >
-          <div class="flex w-[56%] ml-auto items-center">
-            <span class="block">Cart</span>
-            <button id="close-cart" class="ml-auto cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-x w-6 h-6 md:w-8 md:h-8"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M4.646 4.646a.5.5 0 0 1 
-                  .708 0L8 7.293l2.646-2.647a.5.5 
-                  0 0 1 .708.708L8.707 8l2.647 
-                  2.646a.5.5 0 0 1-.708.708L8 
-                  8.707l-2.646 2.647a.5.5 0 0 
-                  1-.708-.708L7.293 8 4.646 
-                  5.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </button>
+        <div class="w-full md:w-[60%] lg:w-[40%] ml-auto bg-white">
+          <div
+            class="bg-navbar text-center w-full p-4 font-bold text-lg flex justify-center items-center"
+          >
+            <div class="flex w-[56%] ml-auto items-center">
+              <span class="block">Cart</span>
+              <button id="close-cart" class="ml-auto cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-x w-6 h-6 md:w-8 md:h-8"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M4.646 4.646a.5.5 0 0 1 
+                    .708 0L8 7.293l2.646-2.647a.5.5 
+                    0 0 1 .708.708L8.707 8l2.647 
+                    2.646a.5.5 0 0 1-.708.708L8 
+                    8.707l-2.646 2.647a.5.5 0 0 
+                    1-.708-.708L7.293 8 4.646 
+                    5.354a.5.5 0 0 1 0-.708"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-        <div id="cartItem" class="w-[95%] mx-auto mt-6 p-6 flex flex-col justify-center text-gray-500 border-2 border-dashed border-gray-200">
+          <div id="cartItem" class="w-[95%] h-screen mx-auto p-6 flex flex-col justify-center text-gray-500">
+          </div>
         </div>
       </div>
     </header>
 
     <!-- ================= MAIN ================= -->
-    <main class="flex-grow flex flex-col items-center justify-center relative">
+    <main class="flex-grow flex flex-col items-center justify-center relative mt-16">
       <!-- HERO SECTION -->
       <section id="hero" class="py-16 px-4 w-full max-w-7xl mx-auto relative z-10">
         <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">

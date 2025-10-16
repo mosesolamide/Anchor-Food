@@ -261,7 +261,7 @@ const displayCart = () => {
             : pack.items.map(({ img, price, name, quantity, id }) => `
           <div class="flex justify-between items-center border-b border-gray-200 py-4">
             <div class="flex items-center gap-4">
-              <img src="${img}" alt="${name}" class="w-14 h-14 rounded-md object-cover shadow-sm" />
+              <img src="${img}" alt="${name}" class="w-12 h-12 rounded-md object-cover shadow-sm" />
               <div>
                 <h3 class="font-semibold text-gray-800">${name}</h3>
                 <p class="text-green-600 font-medium">₦${price.toLocaleString()}</p>
@@ -346,27 +346,27 @@ const displayCart = () => {
     }).join('');
     const grandTotal = packs.reduce((total, pack) => total + calculatePackTotal(pack), 0);
     cartItems.innerHTML = `
-    <div class="overflow-y-auto max-h-[60vh]">
+    <div class="overflow-y-auto h-[90%]">
       ${packsHTML}
-    </div>
-    
     <div class="sticky bottom-0 bg-white border-t-2 border-gray-300 p-4">
+      
       <button 
         id="create-new-pack-btn"
-        class="w-full bg-accent text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mb-3"
+        class="cursor-pointer w-full bg-accent text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mb-3"
       >
         + Create New Pack
       </button>
-      
+
       <div class="flex justify-between items-center text-xl font-bold">
         <span>Grand Total:</span>
         <span class="text-green-600">₦${grandTotal.toLocaleString()}</span>
       </div>
       
-      <button class="w-full bg-navbar text-white font-semibold py-3 rounded-lg hover:opacity-90 transition mt-4">
+      <button class="cursor-pointer w-full bg-navbar text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mt-4">
         Proceed to Checkout
       </button>
     </div>
+  </div>
   `;
     // Add event listener for create new pack button
     (_a = document.getElementById("create-new-pack-btn")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", createNewPack);

@@ -36,7 +36,7 @@
     </style>
 </head>
 <body class="px-6 bg-section-bg">
-    <header class="bg-navbar text-text-light shrink-0 rounded-full mt-4 max-w-7xl mx-auto">
+    <header class="bg-navbar text-text-light shrink-0 rounded-full mt-4 max-w-7xl mx-auto fixed top-0 left-0 right-0 z-50">
       <nav class="flex justify-between items-center py-4 px-7">
         <div class="flex items-center gap-2">
             <img src="" alt="AUL Delivery Logo" class="w-10 h-10 object-contain" />
@@ -82,32 +82,46 @@
           </svg>
         </div>
     </nav>
-    <div class="w-full md:w-[500px] shadow-md absolute right-6 md:right-10 border-green-100 border hidden bg-white rounded-2xl z-50" id="cartModal">
-      <div 
-        class="bg-navbar text-center w-full rounded-t-2xl p-4 font-bold text-lg text-center flex justify-center items-center"
+      <!-- Cart Modal -->
+      <div
+        class="w-full h-screen shadow-md fixed right-0 top-0 hidden bg-black/50 z-50"
+        id="cartModal"
       >
-        <div class="flex w-[56%] ml-auto items-center">
-          <span class="block">Cart</span>
-          <button id="close-cart" class="ml-auto cursor-pointer">
-            <svg 
-              xmlns="http://www.w3.org/2000/svg" 
-              width="16" 
-              height="16" 
-              fill="currentColor" 
-              class="bi bi-x w-6 h-6 md:w-8 md:h-8" 
-              viewBox="0 0 16 16"
-            >
-              <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-            </svg>
-          </button>
+        <div class="w-full md:w-[60%] lg:w-[40%] ml-auto bg-white">
+          <div
+            class="bg-navbar text-center w-full p-4 font-bold text-lg flex justify-center items-center"
+          >
+            <div class="flex w-[56%] ml-auto items-center">
+              <span class="block">Cart</span>
+              <button id="close-cart" class="ml-auto cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-x w-6 h-6 md:w-8 md:h-8"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M4.646 4.646a.5.5 0 0 1 
+                    .708 0L8 7.293l2.646-2.647a.5.5 
+                    0 0 1 .708.708L8.707 8l2.647 
+                    2.646a.5.5 0 0 1-.708.708L8 
+                    8.707l-2.646 2.647a.5.5 0 0 
+                    1-.708-.708L7.293 8 4.646 
+                    5.354a.5.5 0 0 1 0-.708"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div id="cartItem" class="w-[95%] h-screen mx-auto p-6 flex flex-col justify-center text-gray-500">
+          </div>
         </div>
       </div>
-      <div id="cartItem" class="w-[95%] mx-auto mt-6 p-6 flex flex-col justify-center text-gray-500 border-2 border-dashed border-gray-200">
-      </div>
-    </div>
   </header>
 
-  <main class="my-6 max-w-7xl mx-auto">
+  <main class="mb-6 mt-30 max-w-7xl mx-auto">
     <!-- Title Section -->
     <div class="text-center mb-12">
       <h2 class="text-3xl md:text-4xl font-bold text-navbar mb-3">
