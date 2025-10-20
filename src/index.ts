@@ -435,7 +435,8 @@ const displayCart = () => {
   document.getElementById("checkout")?.addEventListener("click", () => {
     if(locationModal){
       locationModal.innerHTML =`
-        <div class="flex flex-col items-center p-6 gap-4 md:gap-8 font-[600] text-md bg-white rounded min-w-[380px]">
+        <div class="flex flex-col items-center p-6 gap-4 md:gap-8 font-[600] text-md bg-white rounded w-[330px] sm:w-[350px] md:w-[550px] shadow-lg animate-fadeIn">
+          
           <div class="flex w-full">
             <span>Select Location</span>
             <button id="close-location-modal" class="ml-auto cursor-pointer">
@@ -459,18 +460,19 @@ const displayCart = () => {
               </svg>
             </button>
           </div>
+
           <!-- Hall Selection -->
-          <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
+          <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full outline-none">
             <option value="">Select a Hall</option>
             <option value="peace">Peace Hall</option>
             <option value="patient">Patient Hall</option>
             <option value="purity">Purity Hall</option>
           </select>
-          
+
           <input 
             type="text"
-            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-            placeholder="Enter Room N0."
+            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full outline-none"
+            placeholder="Enter Room No."
             required
           >
 
@@ -482,18 +484,20 @@ const displayCart = () => {
           <!-- Custom Location -->
           <input 
             type="text" 
-            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full outline-none"
             placeholder="Enter custom location"
             required
           >
 
-          <!-- Search Meal -->
-          <input 
-            type="text" 
-            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-            placeholder="Search meal..."
-            required
-          >
+          <!-- Message -->
+          <div class="flex flex-col items-start w-full">
+            <label class="text-gray-400 text-sm mb-1">Additional Message (Optional)</label>
+            <textarea 
+              class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full outline-none"
+              placeholder="Message"
+            ></textarea>
+          </div>
+
           <button
             class="cursor-pointer w-full bg-navbar text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mt-4"
           >
