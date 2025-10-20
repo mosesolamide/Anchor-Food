@@ -418,7 +418,10 @@ const displayCart = () => {
         <span class="text-green-600">₦${grandTotal.toLocaleString()}</span>
       </div>
       
-      <button class="cursor-pointer w-full bg-navbar text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mt-4">
+      <button 
+        class="cursor-pointer w-full bg-navbar text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mt-4"
+        id="checkout"
+      >
         Proceed to Checkout
       </button>
     </div>
@@ -427,6 +430,83 @@ const displayCart = () => {
 
   // Add event listener for create new pack button
   document.getElementById("create-new-pack-btn")?.addEventListener("click", createNewPack)
+  const locationModal = document.getElementById("location")
+  // =========checkout================
+  document.getElementById("checkout")?.addEventListener("click", () => {
+    if(locationModal){
+      locationModal.innerHTML =`
+        <div class="flex flex-col items-center p-6 gap-4 md:gap-8 font-[600] text-md bg-white rounded min-w-[380px]">
+          <div class="flex w-full">
+            <span>Select Location</span>
+            <button id="close-location-modal" class="ml-auto cursor-pointer">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-x w-6 h-6 md:w-8 md:h-8"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M4.646 4.646a.5.5 0 0 1 
+                  .708 0L8 7.293l2.646-2.647a.5.5 
+                  0 0 1 .708.708L8.707 8l2.647 
+                  2.646a.5.5 0 0 1-.708.708L8 
+                  8.707l-2.646 2.647a.5.5 0 0 
+                  1-.708-.708L7.293 8 4.646 
+                  5.354a.5.5 0 0 1 0-.708"
+                />
+              </svg>
+            </button>
+          </div>
+          <!-- Hall Selection -->
+          <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
+            <option value="">Select a Hall</option>
+            <option value="peace">Peace Hall</option>
+            <option value="patient">Patient Hall</option>
+            <option value="purity">Purity Hall</option>
+          </select>
+          
+          <input 
+            type="text"
+            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+            placeholder="Enter Room N0."
+            required
+          >
+
+          <!-- Divider -->
+          <div class="flex items-center text-gray-500 font-medium">
+            <span class="mx-2 text-sm">Or</span>
+          </div>
+
+          <!-- Custom Location -->
+          <input 
+            type="text" 
+            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+            placeholder="Enter custom location"
+            required
+          >
+
+          <!-- Search Meal -->
+          <input 
+            type="text" 
+            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+            placeholder="Search meal..."
+            required
+          >
+          <button
+            class="cursor-pointer w-full bg-navbar text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mt-4"
+          >
+            Proceed to Payment
+          </button>
+        </div>
+      `
+      locationModal?.classList.remove("hidden")
+      document.getElementById("close-location-modal")?.addEventListener("click", () =>{
+        locationModal?.classList.add("hidden")
+      })
+    }
+  })
 }
 
 // ================= Cart Quantity Update =================

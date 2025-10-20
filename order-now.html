@@ -27,6 +27,8 @@
     </style>
 </head>
 <body class="px-6">
+    <div id="location" class="hidden bg-black/50 z-60 fixed right-0 bottom-0 w-full h-screen flex flex-col justify-center items-center">
+    </div>
     <header class="bg-navbar text-text-light shrink-0 rounded-full mt-4 max-w-7xl mx-auto fixed top-0 left-0 right-0 z-50">
       <nav class="flex justify-between items-center py-4 px-7">
         <div class="flex items-center gap-2">
@@ -114,45 +116,9 @@
 
   <main class="mb-6 mt-28">
     <div class="w-[98%] mx-auto p-6 shadow-lg rounded-2xl bg-green-50">
-      <div class="flex flex-col lg:flex-row items-center gap-4 md:gap-8 w-full font-[600] text-md">
-        <!-- Hall Selection -->
-        <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
-          <option value="">Select a Hall</option>
-          <option value="peace">Peace Hall</option>
-          <option value="patient">Patient Hall</option>
-          <option value="purity">Purity Hall</option>
-        </select>
-        
-        <input 
-          type="text"
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter Room N0."
-          required
-        >
+      
 
-        <!-- Divider -->
-        <div class="flex items-center text-gray-500 font-medium">
-          <span class="mx-2 text-sm">Or</span>
-        </div>
-
-        <!-- Custom Location -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter custom location"
-          required
-        >
-
-        <!-- Search Meal -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Search meal..."
-          required
-        >
-      </div>
-
-      <div class="mt-4">
+      <div>
         <ul 
           class="flex flex-col md:flex-row gap-6 text-xs sm:text-sm md:text-md font-[600]" 
           id="food-categories"

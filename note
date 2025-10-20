@@ -1,0 +1,37 @@
+<div class="flex flex-col lg:flex-row items-center gap-4 md:gap-8 w-full font-[600] text-md">
+        <!-- Hall Selection -->
+        <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
+          <option value="">Select a Hall</option>
+          <option value="peace">Peace Hall</option>
+          <option value="patient">Patient Hall</option>
+          <option value="purity">Purity Hall</option>
+        </select>
+        
+        <input 
+          type="text"
+          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+          placeholder="Enter Room N0."
+          required
+        >
+
+        <!-- Divider -->
+        <div class="flex items-center text-gray-500 font-medium">
+          <span class="mx-2 text-sm">Or</span>
+        </div>
+
+        <!-- Custom Location -->
+        <input 
+          type="text" 
+          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+          placeholder="Enter custom location"
+          required
+        >
+
+        <!-- Search Meal -->
+        <input 
+          type="text" 
+          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
+          placeholder="Search meal..."
+          required
+        >
+      </div>
