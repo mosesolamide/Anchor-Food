@@ -548,6 +548,17 @@ const showCheckoutLocationForm = () => {
 
       </div>
     `
+        const phoneInput = document.getElementById("number") as HTMLInputElement | null
+
+        phoneInput?.addEventListener("input", () => {
+          // Remove any non-digit characters
+          phoneInput.value = phoneInput.value.replace(/\D/g, "")
+
+          // Limit to 11 digits
+          if (phoneInput.value.length > 11) {
+            phoneInput.value = phoneInput.value.slice(0, 11)
+          }
+        })
       locationModal?.classList.remove("hidden")
       document.getElementById("close-location-modal")?.addEventListener("click", () => {
         locationModal?.classList.add("hidden")
@@ -561,7 +572,7 @@ const showOrderDetails = () => {
   document.getElementById("proceed-to-pay")?.addEventListener("click", () => { 
     const packs = getPacks() 
     const hall = document.getElementById('hall') as HTMLSelectElement 
-    const email = document.getElementById("email") as HTMLInputElement | null
+    const email = document.getElementById("email") as HTMLInputElement
     const userPhoneNo = document.getElementById('number') as HTMLInputElement
     const room = document.getElementById('room_no') as HTMLInputElement 
     const customLocation = document.getElementById('custom_location') as HTMLInputElement 
@@ -573,8 +584,12 @@ const showOrderDetails = () => {
       ? `${hall.value} - Room ${room.value}` 
       : customLocation.value
 
-    if(!hall.value || !room.value || !email?.value || !userPhoneNo?.value){
-      alert("You must fill in the information below")
+    if(!hall.value && !customLocation.value){
+      alert("You must pick an hostel or enter a custom location with your mail")
+      return
+    }
+    if(!email.value || !userPhoneNo.value){
+      alert("You must enter your contact info")
       return
     }
     

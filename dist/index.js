@@ -507,6 +507,15 @@ const showCheckoutLocationForm = () => {
 
       </div>
     `;
+            const phoneInput = document.getElementById("number");
+            phoneInput === null || phoneInput === void 0 ? void 0 : phoneInput.addEventListener("input", () => {
+                // Remove any non-digit characters
+                phoneInput.value = phoneInput.value.replace(/\D/g, "");
+                // Limit to 11 digits
+                if (phoneInput.value.length > 11) {
+                    phoneInput.value = phoneInput.value.slice(0, 11);
+                }
+            });
             locationModal === null || locationModal === void 0 ? void 0 : locationModal.classList.remove("hidden");
             (_a = document.getElementById("close-location-modal")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", () => {
                 locationModal === null || locationModal === void 0 ? void 0 : locationModal.classList.add("hidden");
@@ -531,8 +540,12 @@ const showOrderDetails = () => {
         const deliveryLocation = hall.value
             ? `${hall.value} - Room ${room.value}`
             : customLocation.value;
-        if (!hall.value || !room.value || !(email === null || email === void 0 ? void 0 : email.value) || !(userPhoneNo === null || userPhoneNo === void 0 ? void 0 : userPhoneNo.value)) {
-            alert("You must fill in the information below");
+        if (!hall.value && !customLocation.value) {
+            alert("You must pick an hostel or enter a custom location with your mail");
+            return;
+        }
+        if (!email.value || !userPhoneNo.value) {
+            alert("You must enter your contact info");
             return;
         }
         // Calculate total
