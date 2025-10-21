@@ -14,7 +14,7 @@ if (!email) {
   } else {
     // Proceed with Paystack or whatever you’re doing
     const handler = PaystackPop.setup({
-      key: "pk_test_xxxxx",
+      key: "pk_test_471c2e6a6ec98b5e2f591bc06d0d5ecc44a5ef99",
       email: emailInput, // ✅ valid email string here
       amount: 5000 * 100, // Paystack expects kobo (so multiply by 100)
       currency: "NGN",
