@@ -36,6 +36,8 @@
     </style>
 </head>
 <body class="px-6 bg-section-bg">
+    <div id="location" class="hidden bg-black/50 z-60 fixed inset-0 w-full min-h-screen flex justify-center items-center">
+    </div>
     <header class="bg-navbar text-text-light shrink-0 rounded-full mt-4 max-w-7xl mx-auto fixed top-0 left-0 right-0 z-50">
       <nav class="flex justify-between items-center py-4 px-7">
         <div class="flex items-center gap-2">
@@ -296,7 +298,8 @@
         </div>
       </div>
     </footer>
-  
+
+  <script src="https://js.paystack.co/v1/inline.js"></script>
   <script src="./dist/index.js"></script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 import type { Pack } from "./type"
 import { foodTempData } from "./foodData.js"
 import { pay } from "./paystack.js"
+import { getPacks, savePacks } from "./storage.js"
 
 const harmburgerMenu = document.getElementById("harmburger")
 const navList = document.getElementById("mobile-nav-list")
@@ -14,22 +15,6 @@ const foodCategoriesArr = ["All", "Proteins", "Swallows & Soup", "Drinks"]
 let filteredFood = [...foodTempData]
 let currentPackId = 1 // Track which pack is currently selected
 const deliveryFee = 200
-
-// ================= Get or Initialize Packs =================
-const getPacks = (): Pack[] => {
-  const packs = localStorage.getItem("packs")
-  if (!packs || JSON.parse(packs).length === 0) {
-    const initialPack: Pack = { id: 1, packNo: 1, items: [] }
-    localStorage.setItem("packs", JSON.stringify([initialPack]))
-    return [initialPack]
-  }
-  return JSON.parse(packs)
-}
-
-// ================= Save Packs =================
-const savePacks = (packs: Pack[]) => {
-  localStorage.setItem("packs", JSON.stringify(packs))
-}
 
 // ================= Create New Pack =================
 const createNewPack = () => {
@@ -438,7 +423,7 @@ const showCheckoutLocationForm = () => {
                 </label>
                 <select 
                   id="hall" 
-                  class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                  class="placeholder-gray-400 w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
                 >
                   <option value="">-- Choose Hall --</option>
                   <option value="peace">Peace Hall</option>
@@ -455,7 +440,7 @@ const showCheckoutLocationForm = () => {
                 <input 
                   type="text"
                   id="room_no"
-                  class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                  class="placeholder-gray-400 w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
                   placeholder="e.g., Room 204"
                 >
               </div>
@@ -467,8 +452,24 @@ const showCheckoutLocationForm = () => {
                 <input 
                   type="email"
                   id="email"
-                  class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
-                  placeholder="ola@gmail.com"
+                  class="placeholder-gray-400 w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                  placeholder="e.g, ola@gmail.com"
+                >
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-600 mb-1">
+                  Phone number
+                </label>
+                <input 
+                  type="text"
+                  id="number"
+                  inputmode="numeric"
+                  pattern="\d{11}"
+                  maxlength="11"
+                  onwheel="this.blur()"
+                  class="no-spinner placeholder-gray-400 w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                  placeholder="Enter 11 digits phone number"
                 >
               </div>
             </div>
@@ -497,7 +498,7 @@ const showCheckoutLocationForm = () => {
               <input 
                 type="text" 
                 id="custom_location"
-                class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                class="placeholder-gray-400 w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
                 placeholder="e.g., Faculty of Science, Block B"
               >
               <p class="text-xs text-gray-500 mt-1.5">
@@ -514,7 +515,7 @@ const showCheckoutLocationForm = () => {
             <textarea 
               id="additional_message"
               rows="2"
-              class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition resize-none text-sm"
+              class="placeholder-gray-400 w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition resize-none text-sm"
               placeholder="e.g., Call me when you arrive..."
             ></textarea>
           </div>
@@ -561,6 +562,7 @@ const showOrderDetails = () => {
     const packs = getPacks() 
     const hall = document.getElementById('hall') as HTMLSelectElement 
     const email = document.getElementById("email") as HTMLInputElement | null
+    const userPhoneNo = document.getElementById('number') as HTMLInputElement
     const room = document.getElementById('room_no') as HTMLInputElement 
     const customLocation = document.getElementById('custom_location') as HTMLInputElement 
     const message = document.getElementById('additional_message') as HTMLTextAreaElement 
@@ -571,7 +573,7 @@ const showOrderDetails = () => {
       ? `${hall.value} - Room ${room.value}` 
       : customLocation.value
 
-    if(!hall.value || !room.value || !email?.value){
+    if(!hall.value || !room.value || !email?.value || !userPhoneNo?.value){
       alert("You must fill in the information below")
       return
     }
@@ -676,7 +678,7 @@ const showOrderDetails = () => {
     })
 
     document.getElementById("pay")?.addEventListener("click", () => {
-      pay(email,amount)
+      pay(email,amount,userPhoneNo?.value)
     })
   }) 
 }

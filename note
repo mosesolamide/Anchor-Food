@@ -1,37 +1,66 @@
-<div class="flex flex-col lg:flex-row items-center gap-4 md:gap-8 w-full font-[600] text-md">
-        <!-- Hall Selection -->
-        <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full lg:w-[280px] outline-none">
-          <option value="">Select a Hall</option>
-          <option value="peace">Peace Hall</option>
-          <option value="patient">Patient Hall</option>
-          <option value="purity">Purity Hall</option>
-        </select>
-        
-        <input 
-          type="text"
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter Room N0."
-          required
-        >
+        <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-6 mb-8">
+          <div class="space-y-4">
+            
+            <!-- Status Item 1 -->
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <div class="text-left flex-1">
+                <p class="font-semibold text-gray-800">Order Placed</p>
+                <p class="text-sm text-gray-600">Payment successful</p>
+              </div>
+            </div>
 
-        <!-- Divider -->
-        <div class="flex items-center text-gray-500 font-medium">
-          <span class="mx-2 text-sm">Or</span>
+            <!-- Divider -->
+            <div class="h-8 w-0.5 bg-green-300 ml-5"></div>
+
+            <!-- Status Item 2 -->
+            <div class="flex items-center gap-4">
+              <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 animate-pulse">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+              <div class="text-left flex-1">
+                <p class="font-semibold text-gray-800">Preparing Your Food</p>
+                <p class="text-sm text-gray-600">Kitchen is working on it...</p>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-8 w-0.5 bg-gray-300 ml-5"></div>
+
+            <!-- Status Item 3 -->
+            <div class="flex items-center gap-4 opacity-50">
+              <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              </div>
+              <div class="text-left flex-1">
+                <p class="font-semibold text-gray-800">Out for Delivery</p>
+                <p class="text-sm text-gray-600">Rider on the way</p>
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-8 w-0.5 bg-gray-300 ml-5"></div>
+
+            <!-- Status Item 4 -->
+            <div class="flex items-center gap-4 opacity-50">
+              <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+              </div>
+              <div class="text-left flex-1">
+                <p class="font-semibold text-gray-800">Delivered</p>
+                <p class="text-sm text-gray-600">Enjoy your meal!</p>
+              </div>
+            </div>
+
+          </div>
         </div>
-
-        <!-- Custom Location -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Enter custom location"
-          required
-        >
-
-        <!-- Search Meal -->
-        <input 
-          type="text" 
-          class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full lg:w-[280px] outline-none"
-          placeholder="Search meal..."
-          required
-        >
-      </div>

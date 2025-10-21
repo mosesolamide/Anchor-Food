@@ -25,6 +25,19 @@
         --color-accent: #ffb703;
         --color-section-bg: #f9f9f9;
       }
+      /* Hide arrows on number inputs */
+      @layer base {
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        input[type="number"] {
+          -moz-appearance: textfield; /* Firefox */
+        }
+      }
+
     </style>
 </head>
 <body class="px-6">

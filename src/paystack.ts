@@ -1,6 +1,6 @@
 declare var PaystackPop: any;
 
-export const pay = (email:HTMLInputElement | null, amount:number) => {
+export const pay = (email:HTMLInputElement | null, amount:number, phoneNo: string) => {
 
 if (!email) {
   alert("Email input not found!")
@@ -16,10 +16,13 @@ if (!email) {
     const handler = PaystackPop.setup({
       key: "pk_test_471c2e6a6ec98b5e2f591bc06d0d5ecc44a5ef99",
       email: emailInput, // ✅ valid email string here
-      amount: 5000 * 100, // Paystack expects kobo (so multiply by 100)
+      amount: amount * 100, // Paystack expects kobo (so multiply by 100)
       currency: "NGN",
       callback: function (response: any) {
         alert(`Payment complete! Reference: ${response.reference}`)
+        localStorage.removeItem('packs')
+        document.getElementById("location")?.classList.add("hidden")
+        window.location.href = "OnItway.html"
       },
       onClose: function () {
         alert("Transaction was not completed")

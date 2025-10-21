@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order On The Way - CampusEats</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes pulse-ring {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
+    }
+
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .animate-pulse-ring {
+      animation: pulse-ring 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    .animate-spin-slow {
+      animation: spin-slow 3s linear infinite;
+    }
+
+    body {
+      font-family: "Raleway", sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-green-50 to-blue-50 min-h-screen flex items-center justify-center p-4">
+  
+  <div class="max-w-2xl w-full">
+    
+    <!-- Main Card -->
+    <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center relative overflow-hidden">
+      
+      <!-- Decorative circles -->
+      <div class="absolute top-0 right-0 w-40 h-40 bg-green-100 rounded-full -mr-20 -mt-20 opacity-50"></div>
+      <div class="absolute bottom-0 left-0 w-32 h-32 bg-blue-100 rounded-full -ml-16 -mb-16 opacity-50"></div>
+
+      <!-- Content -->
+      <div class="relative z-10">
+        
+        <!-- Success Icon with Animation -->
+        <div class="relative inline-block mb-8">
+          <!-- Pulse rings -->
+          <div class="absolute inset-0 bg-green-500 rounded-full opacity-20 animate-pulse-ring"></div>
+          <div class="absolute inset-0 bg-green-500 rounded-full opacity-20 animate-pulse-ring" style="animation-delay: 1s;"></div>
+          
+          <!-- Main icon -->
+          <div class="relative bg-green-500 w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center animate-float">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 md:w-16 md:h-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Heading -->
+        <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4">
+          Order Confirmed! 🎉
+        </h1>
+
+        <p class="text-lg md:text-xl text-gray-600 mb-8">
+          Your delicious meal is on its way!
+        </p>
+
+        <!-- Order Status Card -->
+
+
+        <!-- Estimated Time -->
+        <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-8">
+          <div class="flex items-center justify-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <p class="text-sm text-gray-600">Estimated Delivery Time</p>
+              <p class="text-2xl font-bold text-blue-600">20-30 mins</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Info Box -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 rounded-lg p-4 mb-8 text-left">
+          <div class="flex gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <p class="font-semibold text-gray-800 mb-1">Please Note:</p>
+              <ul class="text-sm text-gray-700 space-y-1">
+                <li>• Our delivery team will contact you when nearby</li>
+                <li>• Please ensure your phone is reachable</li>
+                <!-- <li>• Have exact change ready if paying cash</li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="space-y-3">
+          <a 
+            href="order-now.html"
+            class="block w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg hover:shadow-xl active:scale-95"
+          >
+            Order More Food
+          </a>
+          
+          <a 
+            href="index.html"
+            class="block w-full bg-white border-2 border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-3 px-6 rounded-xl transition-all"
+          >
+            Back to Home
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer Message -->
+    <div class="text-center mt-8">
+      <p class="text-gray-600 text-sm">
+        Thank you for choosing <span class="font-bold text-green-600">CampusEats</span>! 🍔
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // Auto-update status after certain time (demo purposes)
+    setTimeout(() => {
+      console.log("Status update: Food is ready for pickup!");
+    }, 5000);
+  </script>
+
+</body>
+</html>
