@@ -1,65 +1,19 @@
+import type { Pack } from "./type"
+import { foodTempData } from "./foodData.js"
+import { pay } from "./paystack.js"
+
 const harmburgerMenu = document.getElementById("harmburger")
 const navList = document.getElementById("mobile-nav-list")
 const foodCategories = document.getElementById("food-categories")
 const productContainer = document.getElementById("product")
 const cartModal = document.getElementById("cartModal")
 const cartItems = document.getElementById("cartItem")
+const locationModal = document.getElementById("location")
 
 const foodCategoriesArr = ["All", "Proteins", "Swallows & Soup", "Drinks"]
-
-type Food = {
-  img: string
-  price: number
-  category?: string
-  name: string
-  id?: number
-  des?: string
-  quantity: number
-}
-
-type Pack = {
-  id: number
-  packNo: number
-  items: Food[]
-}
-
-const foodTempData = [
-  {
-    img: "./assets/Delivery.jpg",
-    price: 3500,
-    category: "Food",
-    name: "Jollof Rice",
-    id: 1,
-    des: "200₦ pack cost inclusive"
-  },
-  {
-    img: "./assets/Delivery.jpg",
-    price: 3500,
-    category: "Swallows & Soup",
-    name: "Eba",
-    id: 2,
-    des: "200₦ pack cost inclusive"
-  },
-  {
-    img: "./assets/Delivery.jpg",
-    price: 3500,
-    category: "Proteins",
-    name: "Fish",
-    id: 3,
-    des: "200₦ pack cost inclusive"
-  },
-  {
-    img: "./assets/Delivery.jpg",
-    price: 3500,
-    category: "Drinks",
-    name: "Pepsi",
-    id: 4,
-    des: "200₦ pack cost inclusive"
-  }
-]
-
 let filteredFood = [...foodTempData]
 let currentPackId = 1 // Track which pack is currently selected
+const deliveryFee = 200
 
 // ================= Get or Initialize Packs =================
 const getPacks = (): Pack[] => {
@@ -92,6 +46,7 @@ const createNewPack = () => {
   currentPackId = newPack.id
   
   displayCart()
+  displayFood()
   alert(`Pack ${newPackNo} created! Now adding items to Pack ${newPackNo}`)
 }
 
@@ -207,7 +162,6 @@ const selectCategory = (selectedCategory: string) => {
 
   displayFood(true)
 
-  setTimeout(() => {
     if (selectedCategory === "All") {
       filteredFood = foodTempData
     } else {
@@ -217,7 +171,6 @@ const selectCategory = (selectedCategory: string) => {
     }
 
     displayFood()
-  }, 700)
 }
 
 // ================= Create Category Tabs =================
@@ -240,6 +193,7 @@ if (foodCategories) {
 
 // ================= Add to Cart =================
 productContainer?.addEventListener("click", (e) => {
+
   const button = (e.target as HTMLElement).closest(".add-to-cart")
   if (!button) return
 
@@ -283,6 +237,11 @@ productContainer?.addEventListener("click", (e) => {
 const calculatePackTotal = (pack: Pack): number => {
   return pack.items.reduce((total, item) => total + (item.price * item.quantity), 0)
 }
+const grandTotal = () => {
+  const packs = getPacks()
+  return packs.reduce((total, pack) => total + calculatePackTotal(pack), 0)
+}
+const grandTotals = grandTotal()
 
 // ================= Display Cart =================
 const displayCart = () => {
@@ -399,8 +358,6 @@ const displayCart = () => {
     `
   }).join('')
 
-  const grandTotal = packs.reduce((total, pack) => total + calculatePackTotal(pack), 0)
-
   cartItems.innerHTML = `
     <div class="overflow-y-auto h-[90%]">
       ${packsHTML}
@@ -415,7 +372,7 @@ const displayCart = () => {
 
       <div class="flex justify-between items-center text-xl font-bold">
         <span>Grand Total:</span>
-        <span class="text-green-600">₦${grandTotal.toLocaleString()}</span>
+        <span class="text-green-600">₦${grandTotals.toLocaleString()}</span>
       </div>
       
       <button 
@@ -430,87 +387,298 @@ const displayCart = () => {
 
   // Add event listener for create new pack button
   document.getElementById("create-new-pack-btn")?.addEventListener("click", createNewPack)
-  const locationModal = document.getElementById("location")
-  // =========checkout================
+  
+  // ========= Show checkout location form ================
+  showCheckoutLocationForm()
+
+}
+
+// ======== Show checkout location form function =========
+const showCheckoutLocationForm = () => {
   document.getElementById("checkout")?.addEventListener("click", () => {
-    if(locationModal){
+  if(locationModal){
       locationModal.innerHTML =`
-        <div class="flex flex-col items-center p-6 gap-4 md:gap-8 font-[600] text-md bg-white rounded w-[330px] sm:w-[350px] md:w-[550px] shadow-lg animate-fadeIn">
-          
-          <div class="flex w-full">
-            <span>Select Location</span>
-            <button id="close-location-modal" class="ml-auto cursor-pointer">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                class="bi bi-x w-6 h-6 md:w-8 md:h-8"
-                viewBox="0 0 16 16"
-              >
-                <path
-                  d="M4.646 4.646a.5.5 0 0 1 
-                  .708 0L8 7.293l2.646-2.647a.5.5 
-                  0 0 1 .708.708L8.707 8l2.647 
-                  2.646a.5.5 0 0 1-.708.708L8 
-                  8.707l-2.646 2.647a.5.5 0 0 
-                  1-.708-.708L7.293 8 4.646 
-                  5.354a.5.5 0 0 1 0-.708"
-                />
-              </svg>
-            </button>
+      <!-- Location Modal -->
+      <div class="flex flex-col bg-white rounded-2xl w-full max-w-md shadow-2xl animate-fadeIn max-h-[90vh] overflow-hidden">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <h2 class="text-xl font-bold text-gray-800">Delivery Location</h2>
           </div>
+          
+          <button id="close-location-modal" class="text-gray-400 hover:text-gray-600 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
 
-          <!-- Hall Selection -->
-          <select class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full outline-none">
-            <option value="">Select a Hall</option>
-            <option value="peace">Peace Hall</option>
-            <option value="patient">Patient Hall</option>
-            <option value="purity">Purity Hall</option>
-          </select>
+        <!-- Body - Scrollable -->
+        <div class="p-6 space-y-5 overflow-y-auto flex-1">
+          
+          <!-- Option 1: Hall Delivery -->
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold text-sm">
+                1
+              </div>
+              <h3 class="font-semibold text-gray-700 text-base">Deliver to Hall</h3>
+            </div>
 
-          <input 
-            type="text"
-            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full outline-none"
-            placeholder="Enter Room No."
-            required
-          >
+            <div class="ml-10 space-y-3">
+              <!-- Hall Selection -->
+              <div>
+                <label for="hall" class="block text-sm font-medium text-gray-600 mb-1">
+                  Select Your Hall
+                </label>
+                <select 
+                  id="hall" 
+                  class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                >
+                  <option value="">-- Choose Hall --</option>
+                  <option value="peace">Peace Hall</option>
+                  <option value="patient">Patient Hall</option>
+                  <option value="purity">Purity Hall</option>
+                </select>
+              </div>
+
+              <!-- Room Number -->
+              <div>
+                <label for="room_no" class="block text-sm font-medium text-gray-600 mb-1">
+                  Room Number
+                </label>
+                <input 
+                  type="text"
+                  id="room_no"
+                  class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                  placeholder="e.g., Room 204"
+                >
+              </div>
+
+              <div>
+                <label for="email" class="block text-sm font-medium text-gray-600 mb-1">
+                  Email
+                </label>
+                <input 
+                  type="email"
+                  id="email"
+                  class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                  placeholder="ola@gmail.com"
+                >
+              </div>
+            </div>
+          </div>
 
           <!-- Divider -->
-          <div class="flex items-center text-gray-500 font-medium">
-            <span class="mx-2 text-sm">Or</span>
+          <div class="flex items-center gap-3">
+            <div class="flex-1 h-px bg-gray-300"></div>
+            <span class="text-xs font-medium text-gray-500 uppercase">Or</span>
+            <div class="flex-1 h-px bg-gray-300"></div>
           </div>
 
-          <!-- Custom Location -->
-          <input 
-            type="text" 
-            class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md indent-2 w-full outline-none"
-            placeholder="Enter custom location"
-            required
-          >
+          <!-- Option 2: Custom Location -->
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
+                2
+              </div>
+              <h3 class="font-semibold text-gray-700 text-base">Deliver to Custom Location</h3>
+            </div>
 
-          <!-- Message -->
-          <div class="flex flex-col items-start w-full">
-            <label class="text-gray-400 text-sm mb-1">Additional Message (Optional)</label>
+            <div class="ml-10">
+              <label for="custom_location" class="block text-sm font-medium text-gray-600 mb-1">
+                Specify Location
+              </label>
+              <input 
+                type="text" 
+                id="custom_location"
+                class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition text-sm"
+                placeholder="e.g., Faculty of Science, Block B"
+              >
+              <p class="text-xs text-gray-500 mt-1.5">
+                📍 Enter class, library, or any campus location
+              </p>
+            </div>
+          </div>
+
+          <!-- Additional Instructions -->
+          <div class="space-y-2">
+            <label for="additional_message" class="block text-sm font-medium text-gray-700">
+              Additional Instructions <span class="text-gray-400 font-normal">(Optional)</span>
+            </label>
             <textarea 
-              class="border border-navbar focus:border-btn focus:ring-2 focus:ring-btn/30 p-2 rounded-md w-full outline-none"
-              placeholder="Message"
+              id="additional_message"
+              rows="2"
+              class="w-full border-2 border-gray-300 focus:border-green-600 focus:ring-2 focus:ring-green-100 p-2.5 rounded-lg outline-none transition resize-none text-sm"
+              placeholder="e.g., Call me when you arrive..."
             ></textarea>
           </div>
 
+          <!-- Info Box -->
+          <div class="bg-green-50 border-l-4 border-green-600 p-3 rounded">
+            <div class="flex gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p class="text-xs text-gray-700">
+                <strong>Tip:</strong> Please ensure your location details are accurate for faster delivery!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer - Fixed Button -->
+        <div class="p-6 pt-4 border-t border-gray-200 flex-shrink-0">
           <button
-            class="cursor-pointer w-full bg-navbar text-white font-semibold py-2 rounded-lg hover:opacity-90 transition mt-4"
+            id="proceed-to-pay"
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 flex items-center justify-center gap-2"
           >
-            Proceed to Payment
+            <span>Continue to Payment</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
           </button>
         </div>
-      `
+
+      </div>
+    `
       locationModal?.classList.remove("hidden")
-      document.getElementById("close-location-modal")?.addEventListener("click", () =>{
+      document.getElementById("close-location-modal")?.addEventListener("click", () => {
         locationModal?.classList.add("hidden")
       })
     }
+    showOrderDetails()
   })
+}
+
+const showOrderDetails = () => { 
+  document.getElementById("proceed-to-pay")?.addEventListener("click", () => { 
+    const packs = getPacks() 
+    const hall = document.getElementById('hall') as HTMLSelectElement 
+    const email = document.getElementById("email") as HTMLInputElement | null
+    const room = document.getElementById('room_no') as HTMLInputElement 
+    const customLocation = document.getElementById('custom_location') as HTMLInputElement 
+    const message = document.getElementById('additional_message') as HTMLTextAreaElement 
+    const amount = grandTotals + packs.length * deliveryFee + packs.length * 200
+    
+    // Get delivery location
+    const deliveryLocation = hall.value 
+      ? `${hall.value} - Room ${room.value}` 
+      : customLocation.value
+
+    if(!hall.value || !room.value || !email?.value){
+      alert("You must fill in the information below")
+      return
+    }
+    
+    // Calculate total
+    if(!locationModal) return
+
+    locationModal.innerHTML = ` 
+      <div class="flex flex-col bg-white rounded-2xl w-full max-w-md shadow-2xl animate-fadeIn max-h-[90vh] overflow-hidden">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 border-b border-gray-200 flex-shrink-0">
+          <h2 class="text-xl font-bold text-gray-800">Order Summary</h2>
+          <button id="close-order-details" class="text-gray-400 hover:text-gray-600 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Body -->
+        <div class="p-6 space-y-6 overflow-y-auto flex-1">
+          
+          <!-- Order Info -->
+          <div class="bg-green-50 rounded-lg p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <h3 class="font-semibold text-gray-800">Your Order</h3>
+            </div>
+            <p class="text-2xl font-bold text-green-600">${packs.length} Pack${packs.length > 1 ? 's' : ''}</p>
+            <p class="text-sm text-gray-600 mt-1">${packs.reduce((total, pack) => total + pack.items.length, 0)} items total</p>
+          </div>
+
+          <!-- Delivery Details -->
+          <div>
+            <div class="flex items-center gap-2 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <h3 class="font-semibold text-gray-800">Delivery Details</h3>
+            </div>
+            
+            <div class="bg-gray-50 rounded-lg p-4 space-y-2">
+              <div>
+                <p class="text-xs text-gray-500 uppercase">Location</p>
+                <p class="font-medium text-gray-800">${deliveryLocation}</p>
+              </div>
+              
+              ${message.value ? `
+                <div class="pt-2 border-t border-gray-200">
+                  <p class="text-xs text-gray-500 uppercase">Additional Note</p>
+                  <p class="text-sm text-gray-700">${message.value}</p>
+                </div>
+              ` : ''}
+            </div>
+          </div>
+
+          <!-- Price Summary -->
+          <div class="border-t border-gray-200 pt-4">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-600">Subtotal</span>
+              <span class="font-medium">₦${grandTotals.toLocaleString()}</span>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-600">Delivery Fee</span>
+              <span class="font-medium text-green-600">₦${deliveryFee * packs.length}</span>
+            </div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-gray-600">Pack</span>
+              <span class="font-medium text-green-600">₦${200 * packs.length}</span>
+            </div>
+            <div class="flex justify-between items-center pt-3 border-t border-gray-200">
+              <span class="text-lg font-bold text-gray-800">Total</span>
+              <span class="text-xl font-bold text-green-600">₦${amount}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-6 pt-4 border-t border-gray-200 flex-shrink-0 space-y-3">
+          <button
+            id="pay"
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-all shadow-md hover:shadow-lg active:scale-95"
+          >
+            Confirm & Pay ₦${amount}
+          </button>
+          <button
+            id="edit-order"
+            class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2.5 rounded-lg transition-all"
+          >
+            Edit Order
+          </button>
+        </div>
+
+      </div>
+    ` 
+    document.getElementById("edit-order")?.addEventListener("click", () => {
+      locationModal?.classList.add("hidden")
+    })
+
+    document.getElementById("pay")?.addEventListener("click", () => {
+      pay(email,amount)
+    })
+  }) 
 }
 
 // ================= Cart Quantity Update =================
