@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "esnext",
+    "target": "ES2017",
+    "module": "ES2022",
     "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "./src",

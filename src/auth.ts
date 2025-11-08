@@ -4,38 +4,40 @@ import { showNotification } from "./index.js"
 const loginForm = document.getElementById("login-form") as HTMLFormElement | null
 const signupForm = document.getElementById("signup-form") as HTMLFormElement | null
 const signupBtn = document.getElementById("signup-btn") as HTMLButtonElement | null
+const loginBtn = document.getElementById("login-btn") as HTMLButtonElement | null 
 const errorMessage = document.getElementById("errorMessage")
 
-// login functions
+
 loginForm?.addEventListener("submit", async (e) => {
     e.preventDefault()
-        // Disable button
-    if (signupBtn) {
-        signupBtn.disabled = true
-        signupBtn.textContent = 'Loggin...'
+    
+    if (loginBtn) {
+        loginBtn.disabled = true
+        loginBtn.textContent = 'Logging in...'
     }
 
     const formData = new FormData(loginForm)
     const data = Object.fromEntries(formData.entries())
-    try{
+    
+    try {
         const { error } = await supabase.auth.signInWithPassword({
-            email: data.email,
-            password: data.password,
+            email: data.email as string,
+            password: data.password as string,
         })
-        if(error){
-            throw error
-        }
+        
+        if (error) throw error
+        
         showNotification("Successfully Login", true)
-        window.location.href = "./LandingPage.html"
+        window.location.href = "./rider-dashboard.html"
 
-        if (signupBtn) {
-            signupBtn.disabled = false
-            signupBtn.textContent = 'Login'
-        }
-
-    }catch(err:any){
-        showNotification(`${err?.message} `,false)
+    } catch (err: any) {
+        showNotification(`${err?.message}`, false)
         console.error("Error:", err)
+    } finally {
+        if (loginBtn) {
+            loginBtn.disabled = false
+            loginBtn.textContent = 'Login'
+        }
     }
 })
 
@@ -43,7 +45,6 @@ loginForm?.addEventListener("submit", async (e) => {
 signupForm?.addEventListener("submit", async (e) => {
     e.preventDefault()
 
-    // Disable button
     if (signupBtn) {
         signupBtn.disabled = true
         signupBtn.textContent = 'Signing up...'
@@ -51,45 +52,32 @@ signupForm?.addEventListener("submit", async (e) => {
 
     const formData = new FormData(signupForm)
     const data = Object.fromEntries(formData.entries())
-    try{
-        if(!data.email || !data.password){
-            if(errorMessage){
-                showFormError("You must fill all details")
-                if (signupBtn) {
-                    signupBtn.disabled = false
-                    signupBtn.textContent = 'Sign Up'
-                }
-                return
-            }
+    
+    try {
+        if (!data.email || !data.password) {
+            showFormError("You must fill all details")
+            return
         }
 
-        if(data.password !== data.cpassword){
-            if(errorMessage){
-                showFormError("Password does not match")
-                if (signupBtn) {
-                    signupBtn.disabled = false
-                    signupBtn.textContent = 'Sign Up'
-                }
-                return
-            }
+        if (data.password !== data.cpassword) {
+            showFormError("Password does not match")
+            return
         }
-        // register rider email, password
+        
         const { data: riderData, error: signUpError } = await supabase.auth.signUp({
-            email: data.email,
-            password: data.password,
+            email: data.email as string,
+            password: data.password as string,
         })
 
         if (signUpError) {
-        // Handle "already registered" gracefully
-        if (signUpError.message.includes("User already registered")) {
-            showNotification("This email is already in use. Please log in.", false)
-        } else {
-            showNotification(`Error: ${signUpError.message}`, false)
-        }
-        return
+            if (signUpError.message.includes("User already registered")) {
+                showNotification("This email is already in use. Please log in.", false)
+            } else {
+                showNotification(`Error: ${signUpError.message}`, false)
+            }
+            return
         }
 
-        // Insert rider details into database
         const { error: insertError } = await supabase.from("riderDetails").insert({
             user_id: riderData.user?.id,
             fullname: data.fullname,
@@ -100,33 +88,29 @@ signupForm?.addEventListener("submit", async (e) => {
 
         if (insertError) throw insertError
 
-        // Success message
         showNotification("Account successfully created!", true)
 
-        // Redirect after a short delay (1.5s)
         setTimeout(() => {
-        window.location.href = "./LandingPage.html"
+            window.location.href = "./rider-dashboard.html"
         }, 1500)
 
-    } catch (err:any) {
+    } catch (err: any) {
         console.error("Error:", err)
         showNotification(`Unexpected error: ${err?.message}`, false)
     } finally {
-        // Always re-enable the button
         if (signupBtn) {
-        signupBtn.disabled = false
-        signupBtn.textContent = "Sign Up"
+            signupBtn.disabled = false
+            signupBtn.textContent = "Sign Up"
         }
     }
 })
 
-const showFormError = (text:string) => {
-    if(errorMessage){
+const showFormError = (text: string) => {
+    if (errorMessage) {
         errorMessage.classList.remove("hidden")
         errorMessage.textContent = text
-        setTimeout( () => {
+        setTimeout(() => {
             errorMessage.classList.add("hidden")
-        },5000)
+        }, 5000)
     }
 }
-
