@@ -192,3 +192,15 @@ window.onload = () => {
 const yearEl = document.getElementById("year");
 if (yearEl)
     yearEl.textContent = new Date().getFullYear().toString();
+export const showNotification = (text, success) => {
+    const toast = document.getElementById("toast");
+    const toastMessage = document.getElementById("toast-message");
+    toast === null || toast === void 0 ? void 0 : toast.classList.remove("hidden");
+    if (toastMessage) {
+        toastMessage.textContent = text;
+    }
+    success ? toast === null || toast === void 0 ? void 0 : toast.classList.add("bg-btn") : toast === null || toast === void 0 ? void 0 : toast.classList.add("bg-red-500");
+    setTimeout(() => {
+        toast === null || toast === void 0 ? void 0 : toast.classList.add("hidden");
+    }, 3000);
+};

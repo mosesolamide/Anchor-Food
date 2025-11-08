@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Rider Account</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind Custom Theme -->
+    <style type="text/tailwindcss">
+      @theme {
+        --font-sans: "Raleway", sans-serif;
+        --color-navbar: #004b23;
+        --color-text-light: #f1faee;
+        --color-text-dark: #333333;
+        --color-btn: #80ed99;
+        --color-btn-hover: #b7e4c7;
+        --color-accent: #ffb703;
+        --color-section-bg: #f9f9f9;
+      }
+    </style>
+</head>
+<body class="bg-section-bg flex flex-col justify-center items-center min-h-screen px-6">
+        <!-- Toast Notification -->
+        <div 
+            id="toast" 
+            class="hidden fixed top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+            bg-green-600 text-white px-6 py-4 rounded-lg shadow-lg 
+            text-center w-[90%] max-w-sm 
+            transition-all duration-500 scale-90"
+        >
+            <p id="toast-message" class="font-medium text-white"></p>
+        </div>
+
+    <div class="flex flex-col items-center bg-white shadow-xl rounded-2xl p-8 md:p-10 w-full max-w-lg">
+        <!-- Back Button -->
+        <a href="RiderHome.html" class="self-start mb-6 flex items-center gap-2 text-sm text-navbar hover:underline font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to home
+        </a>
+
+        <!-- Logo & Title Section -->
+        <div class="text-center mb-8">
+            <!-- Logo -->
+            <div class="w-16 h-16 mx-auto mb-4 bg-navbar rounded-full flex items-center justify-center">
+                <!-- If you have logo, use: <img src="./assets/logo.png" alt="CampusEats" class="w-12 h-12"> -->
+                <!-- Placeholder icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-btn" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+            </div>
+            
+            <!-- Brand Name -->
+            <h2 class="text-2xl font-bold text-navbar mb-1">CampusEats</h2>
+            
+            <!-- Title -->
+            <h1 class="text-lg font-semibold text-gray-700">Rider Login</h1>
+            <p class="text-sm text-gray-500 mt-1">Sign in to start accepting orders</p>
+        </div>
+
+        <!-- Form -->
+        <form class="w-full" id="login-form">
+            <div class="flex flex-col gap-4">
+                <label class="flex flex-col gap-2">
+                    <span class="text-sm font-medium text-gray-700">Email Address</span>
+                    <input 
+                        type="email" 
+                        placeholder="rider@email.com"
+                        class="w-full py-3 px-4 outline-none border-2 border-gray-200 rounded-lg focus:border-btn focus:ring-2 focus:ring-btn/20 transition"
+                        required
+                        name="email"
+                    >
+                </label>
+
+                <label class="flex flex-col gap-2">
+                    <span class="text-sm font-medium text-gray-700">Password</span>
+                    <input 
+                        type="password" 
+                        placeholder="••••••••"
+                        class="w-full py-3 px-4 outline-none border-2 border-gray-200 rounded-lg focus:border-btn focus:ring-2 focus:ring-btn/20 transition"
+                        required
+                        name="password"
+                    >
+                </label>
+
+                <button 
+                    type="submit"
+                    id="login-btn"
+                    class="w-full bg-btn text-navbar font-semibold py-3 rounded-lg hover:bg-btn-hover cursor-pointer 
+                    transition shadow-md hover:shadow-lg hover:scale-[1.02] transform duration-200 mt-2 disabled:cursor-not-allowed"
+                >
+                    Login
+                </button>
+            </div>
+        </form>
+
+        <!-- Footer Links -->
+        <div class="w-full flex flex-col sm:flex-row justify-between items-center gap-3 mt-6 pt-6 border-t border-gray-200">
+            <a href="#" class="text-xs font-medium text-navbar hover:underline">
+                Forgot Password?
+            </a>
+            <div class="flex items-center gap-1 text-xs">
+                <span class="text-gray-600">Don't have an account?</span>
+                <a href="rider-signup.html" class="font-medium text-navbar hover:underline">Sign up</a>
+            </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-2.5 text-center">
+            By logging in, you agree to our Terms & Conditions
+        </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+     <script type="module" src="../dist/auth.js"></script>
+</body>
+</html>

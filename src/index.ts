@@ -230,3 +230,16 @@ window.onload = () => {
 // ================= Year Auto Update =================
 const yearEl = document.getElementById("year") as HTMLElement
 if (yearEl) yearEl.textContent = new Date().getFullYear().toString()
+
+export const showNotification = (text:string,success:boolean) => {
+  const toast = document.getElementById("toast")
+  const toastMessage = document.getElementById("toast-message")
+  toast?.classList.remove("hidden")
+  if(toastMessage){
+    toastMessage.textContent = text
+  }
+  success? toast?.classList.add("bg-btn") : toast?.classList.add("bg-red-500")
+  setTimeout(() => {
+    toast?.classList.add("hidden")
+  },3000)
+}

@@ -1,66 +1,154 @@
-        <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-6 mb-8">
-          <div class="space-y-4">
-            
-            <!-- Status Item 1 -->
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <div class="text-left flex-1">
-                <p class="font-semibold text-gray-800">Order Placed</p>
-                <p class="text-sm text-gray-600">Payment successful</p>
-              </div>
-            </div>
+// riders-dashboard.ts
 
-            <!-- Divider -->
-            <div class="h-8 w-0.5 bg-green-300 ml-5"></div>
+// Display available orders
+const displayAvailableOrders = async () => {
+  const { data: orders, error } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('status', 'pending')
+    .eq('payment_status', 'paid')
+    .order('created_at', { ascending: false })
 
-            <!-- Status Item 2 -->
-            <div class="flex items-center gap-4">
-              <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 animate-pulse">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-              </div>
-              <div class="text-left flex-1">
-                <p class="font-semibold text-gray-800">Preparing Your Food</p>
-                <p class="text-sm text-gray-600">Kitchen is working on it...</p>
-              </div>
-            </div>
+  if (error || !orders) {
+    console.error('Error fetching orders:', error)
+    return
+  }
 
-            <!-- Divider -->
-            <div class="h-8 w-0.5 bg-gray-300 ml-5"></div>
+  const ordersContainer = document.getElementById('orders-container')
+  if (!ordersContainer) return
 
-            <!-- Status Item 3 -->
-            <div class="flex items-center gap-4 opacity-50">
-              <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                </svg>
-              </div>
-              <div class="text-left flex-1">
-                <p class="font-semibold text-gray-800">Out for Delivery</p>
-                <p class="text-sm text-gray-600">Rider on the way</p>
-              </div>
-            </div>
+  if (orders.length === 0) {
+    ordersContainer.innerHTML = `
+      <div class="text-center py-12">
+        <p class="text-gray-500 text-lg">No orders available right now</p>
+        <p class="text-sm text-gray-400 mt-2">Check back in a few minutes</p>
+      </div>
+    `
+    return
+  }
 
-            <!-- Divider -->
-            <div class="h-8 w-0.5 bg-gray-300 ml-5"></div>
-
-            <!-- Status Item 4 -->
-            <div class="flex items-center gap-4 opacity-50">
-              <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-              </div>
-              <div class="text-left flex-1">
-                <p class="font-semibold text-gray-800">Delivered</p>
-                <p class="text-sm text-gray-600">Enjoy your meal!</p>
-              </div>
-            </div>
-
-          </div>
+  ordersContainer.innerHTML = orders.map(order => `
+    <div class="bg-white border-2 border-gray-200 rounded-xl p-6 mb-4 hover:border-green-500 transition shadow-md">
+      <div class="flex justify-between items-start mb-4">
+        <div>
+          <h3 class="font-bold text-xl text-gray-800">New Order!</h3>
+          <p class="text-sm text-gray-600 mt-1">📍 ${order.delivery_location}</p>
+          <p class="text-sm text-gray-600">📧 ${order.customer_email}</p>
+          <p class="text-sm text-gray-600">📱 ${order.customer_phone}</p>
         </div>
+        <div class="text-right">
+          <p class="text-sm text-gray-500">You'll receive:</p>
+          <p class="text-3xl font-bold text-green-600">₦${(order.food_cost + order.delivery_fee).toLocaleString()}</p>
+        </div>
+      </div>
+
+      <div class="bg-green-50 rounded-lg p-4 mb-4 space-y-2">
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-600">Food Cost:</span>
+          <span class="font-semibold text-gray-800">₦${order.food_cost.toLocaleString()}</span>
+        </div>
+        <div class="flex justify-between text-sm">
+          <span class="text-gray-600">Your Delivery Fee:</span>
+          <span class="font-semibold text-green-600">₦${order.delivery_fee.toLocaleString()}</span>
+        </div>
+        <div class="border-t border-green-200 pt-2 flex justify-between">
+          <span class="font-bold text-gray-800">Total to Your Account:</span>
+          <span class="font-bold text-green-600 text-lg">₦${(order.food_cost + order.delivery_fee).toLocaleString()}</span>
+        </div>
+      </div>
+
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-4 rounded">
+        <p class="text-xs text-gray-700">
+          <strong>💡 How it works:</strong> Accept this order and ₦${(order.food_cost + order.delivery_fee).toLocaleString()} will be sent to your bank account immediately. Use ₦${order.food_cost.toLocaleString()} to buy the food and keep ₦${order.delivery_fee.toLocaleString()} as your delivery fee.
+        </p>
+      </div>
+
+      <button 
+        onclick="acceptOrder('${order.id}', '${localStorage.getItem('rider_id')}')"
+        class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-4 rounded-lg transition shadow-lg hover:shadow-xl active:scale-95"
+      >
+        Accept & Get Paid ₦${(order.food_cost + order.delivery_fee).toLocaleString()} Now!
+      </button>
+    </div>
+  `).join('')
+}
+
+// Real-time updates (listen for new orders)
+const subscribeToNewOrders = () => {
+  const channel = supabase
+    .channel('orders-channel')
+    .on(
+      'postgres_changes',
+      {
+        event: 'INSERT',
+        schema: 'public',
+        table: 'orders',
+        filter: 'status=eq.pending'
+      },
+      (payload) => {
+        console.log('🔔 New order!', payload.new)
+        displayAvailableOrders() // Refresh list
+        
+        // Optional: Play notification sound
+        new Audio('/notification.mp3').play()
+      }
+    )
+    .subscribe()
+
+  return channel
+}
+
+// Initialize
+window.onload = () => {
+  displayAvailableOrders()
+  subscribeToNewOrders()
+}
+```
+
+---
+
+## **Money Flow Summary:**
+```
+1. Customer pays ₦10,000
+        ↓
+   Goes to YOUR Paystack account
+   
+2. Rider accepts order
+        ↓
+   Your system AUTOMATICALLY transfers ₦9,500 to rider
+   (₦8,500 for food + ₦1,000 delivery fee)
+        ↓
+   Rider receives money in their bank
+   
+3. You keep ₦500 (your platform fee)
+        ↓
+   Rider buys food with ₦8,500
+   Rider delivers to customer
+   Rider keeps ₦1,000
+```
+
+---
+
+## **Complete Flow Visualization:**
+```
+Customer Orders ₦10,000 food
+         ↓
+    Pays via Paystack
+         ↓
+    ₦10,000 → YOUR Account
+         ↓
+  Order appears on riders' dashboard
+         ↓
+    Rider clicks "Accept"
+         ↓
+  🤖 AUTOMATIC TRANSFER:
+  ₦9,500 → Rider's Bank Account
+         ↓
+    Rider gets notification
+    "₦9,500 credited to your account!"
+         ↓
+    Rider uses ₦8,500 to buy food
+    Rider delivers to customer
+    Rider keeps ₦1,000 as profit
+         ↓
+    You keep ₦500 in YOUR account ✅

@@ -1,0 +1,132 @@
+import { supabase } from "./supabase-confg.js"
+import { showNotification } from "./index.js"
+
+const loginForm = document.getElementById("login-form") as HTMLFormElement | null
+const signupForm = document.getElementById("signup-form") as HTMLFormElement | null
+const signupBtn = document.getElementById("signup-btn") as HTMLButtonElement | null
+const errorMessage = document.getElementById("errorMessage")
+
+// login functions
+loginForm?.addEventListener("submit", async (e) => {
+    e.preventDefault()
+        // Disable button
+    if (signupBtn) {
+        signupBtn.disabled = true
+        signupBtn.textContent = 'Loggin...'
+    }
+
+    const formData = new FormData(loginForm)
+    const data = Object.fromEntries(formData.entries())
+    try{
+        const { error } = await supabase.auth.signInWithPassword({
+            email: data.email,
+            password: data.password,
+        })
+        if(error){
+            throw error
+        }
+        showNotification("Successfully Login", true)
+        window.location.href = "./LandingPage.html"
+
+        if (signupBtn) {
+            signupBtn.disabled = false
+            signupBtn.textContent = 'Login'
+        }
+
+    }catch(err:any){
+        showNotification(`${err?.message} `,false)
+        console.error("Error:", err)
+    }
+})
+
+// sign up function
+signupForm?.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    // Disable button
+    if (signupBtn) {
+        signupBtn.disabled = true
+        signupBtn.textContent = 'Signing up...'
+    }
+
+    const formData = new FormData(signupForm)
+    const data = Object.fromEntries(formData.entries())
+    try{
+        if(!data.email || !data.password){
+            if(errorMessage){
+                showFormError("You must fill all details")
+                if (signupBtn) {
+                    signupBtn.disabled = false
+                    signupBtn.textContent = 'Sign Up'
+                }
+                return
+            }
+        }
+
+        if(data.password !== data.cpassword){
+            if(errorMessage){
+                showFormError("Password does not match")
+                if (signupBtn) {
+                    signupBtn.disabled = false
+                    signupBtn.textContent = 'Sign Up'
+                }
+                return
+            }
+        }
+        // register rider email, password
+        const { data: riderData, error: signUpError } = await supabase.auth.signUp({
+            email: data.email,
+            password: data.password,
+        })
+
+        if (signUpError) {
+        // Handle "already registered" gracefully
+        if (signUpError.message.includes("User already registered")) {
+            showNotification("This email is already in use. Please log in.", false)
+        } else {
+            showNotification(`Error: ${signUpError.message}`, false)
+        }
+        return
+        }
+
+        // Insert rider details into database
+        const { error: insertError } = await supabase.from("riderDetails").insert({
+            user_id: riderData.user?.id,
+            fullname: data.fullname,
+            matric_no: data.matric_no,
+            email: data.email,
+            phone_no: data.phone_no,
+        })
+
+        if (insertError) throw insertError
+
+        // Success message
+        showNotification("Account successfully created!", true)
+
+        // Redirect after a short delay (1.5s)
+        setTimeout(() => {
+        window.location.href = "./LandingPage.html"
+        }, 1500)
+
+    } catch (err:any) {
+        console.error("Error:", err)
+        showNotification(`Unexpected error: ${err?.message}`, false)
+    } finally {
+        // Always re-enable the button
+        if (signupBtn) {
+        signupBtn.disabled = false
+        signupBtn.textContent = "Sign Up"
+        }
+    }
+})
+
+const showFormError = (text:string) => {
+    if(errorMessage){
+        errorMessage.classList.remove("hidden")
+        errorMessage.textContent = text
+        setTimeout( () => {
+            errorMessage.classList.add("hidden")
+        },5000)
+    }
+}
+

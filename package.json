@@ -20,5 +20,8 @@
   "homepage": "https://github.com/mosesolamide/Anchor-Food#readme",
   "devDependencies": {
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.80.0"
   }
 }
